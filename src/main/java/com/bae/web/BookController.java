@@ -55,14 +55,8 @@ public class BookController {
 	}
 
 	@GetMapping("/findByFiction/{bool}")
-	public ResponseEntity<List<Book>> findByFiction(@PathVariable String bool) {
-		Boolean input = true;
-		if (bool.equalsIgnoreCase("true")) {
-			input = true;
-		} else if (bool.equalsIgnoreCase("false")) {
-			input = false;
-		}
-		return ResponseEntity.ok(this.service.findByIsFiction(input));
+	public ResponseEntity<List<Book>> findByFiction(@PathVariable Boolean bool) {
+		return ResponseEntity.ok(this.service.findByIsFiction(bool));
 	}
 
 	@PutMapping("/update/{id}")
