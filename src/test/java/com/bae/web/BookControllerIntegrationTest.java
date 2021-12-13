@@ -40,12 +40,12 @@ public class BookControllerIntegrationTest {
 
 	@Test
 	void testCreate() throws Exception {
-		Book testBook = new Book("Test Book 2", "Test Author 2", true, "Adventure", "12345");
+		Book testBook = new Book("Test Book 2", "Test Author 2", true, "Adventure");
 		String testBookAsJSON = this.mapper.writeValueAsString(testBook);
 
 		RequestBuilder req = post("/create").contentType(MediaType.APPLICATION_JSON).content(testBookAsJSON);
 
-		Book createdBook = new Book(2, "Test Book 2", "Test Author 2", true, "Adventure", "12345");
+		Book createdBook = new Book(2, "Test Book 2", "Test Author 2", true, "Adventure", null);
 		String createdBookAsJSON = this.mapper.writeValueAsString(createdBook);
 
 		ResultMatcher checkStatus = status().isCreated();
@@ -111,7 +111,8 @@ public class BookControllerIntegrationTest {
 		Book savedBook = new Book(1, "Test Book", "Test Author", false, "Adventure", "123");
 		String savedBookAsJSON = this.mapper.writeValueAsString(List.of(savedBook));
 
-		RequestBuilder req = get("/findByFiction/0").contentType(MediaType.APPLICATION_JSON);
+		RequestBuilder req = get("/findByFiction/" + String.valueOf(savedBook.getIsFiction()))
+				.contentType(MediaType.APPLICATION_JSON);
 
 		ResultMatcher checkStatus = status().isOk();
 		ResultMatcher checkContent = content().json(savedBookAsJSON);
@@ -127,7 +128,7 @@ public class BookControllerIntegrationTest {
 		RequestBuilder req = put("/update/" + savedBook.getId()).contentType(MediaType.APPLICATION_JSON)
 				.content(savedBookAsJSON);
 
-		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkStatus = status().isAccepted();
 		ResultMatcher checkContent = content().json(savedBookAsJSON);
 
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkContent);
