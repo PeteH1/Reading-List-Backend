@@ -1,7 +1,7 @@
 <h1 align="center">Reading List Project</h1>
-<h2 align="center">Front end</h2>
+<h2 align="center">Back end</h2>
 
-The back-end repo can be found [here](https://github.com/PeteH1/Reading-List-Backend).
+The front-end repo can be found [here](https://github.com/PeteH1/Reading-List-Frontend).
 
 ### Introduction
 The aim of this project was to create a CRUD application with the utilisation of supporting tools, 
